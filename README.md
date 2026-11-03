@@ -1,7 +1,15 @@
-# Lavertia vue-ui
+# @lavertia/vue-ui
 
-Framework-owned rendering package for Lavertia's versioned PHP component protocol.
+Production Vue 3 renderer of Lavertia component protocol v1. This package owns the UI markup and interactivity; `lavertia/playground` is only a consumer.
 
-The package will own production Vue UI components, not the playground. Shared protocol and validated theme tokens are provided by @lavertia/ui.
+The shared `@lavertia/ui` package supplies protocol types, table helpers and validated theme tokens. `lavertia/panels` supplies PHP definitions and the installer shim.
 
-Alpha development only: no stable npm release is implied.
+## Development
+
+```sh
+npm install github:lavertia/vue-ui#main
+```
+
+The page imports `@lavertia/ui/theme.css`, binds `themeVariables(lavertia.theme)` on its root, and uses semantic classes for accents, primary actions and focus. Configure the backend via `lavertia.panels.admin.theme = \Lavertia\ThemeDefault\ClassicTheme::class` after installing `lavertia/theme-default`.
+
+No stable npm release is implied. Pin Git commits when consuming alpha builds.
