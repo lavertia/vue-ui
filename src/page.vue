@@ -1,16 +1,21 @@
 <script setup lang="ts">
 import { Head, Link } from '@inertiajs/vue3';
-import { themeVariables } from '@lavertia/ui';
+import { activeUiKitId, themeVariables } from '@lavertia/ui';
+import { computed } from 'vue';
 import '@lavertia/ui/theme.css';
 import LavertiaRenderer from './renderer.vue';
 import type { LavertiaPayload } from '@lavertia/ui';
 
-defineProps<{ lavertia: LavertiaPayload }>();
+const props = defineProps<{ lavertia: LavertiaPayload }>();
+const kitId = computed(() => activeUiKitId(props.lavertia.uiKit));
 </script>
 
 <template>
     <Head :title="lavertia.title ?? 'Lavertia'" />
-    <main :lang="lavertia.locale ?? 'en'" :dir="lavertia.direction ?? 'ltr'" :style="themeVariables(lavertia.theme)" class="lvt-root min-h-[calc(100vh-8rem)] bg-gray-50/70 px-4 py-6 sm:px-6 lg:px-8 dark:bg-gray-950/40">
+    <p v-if="kitId !== 'default'" role="alert" class="mx-auto max-w-xl p-6 text-sm text-rose-700">
+        The UI Kit "{{ kitId }}" is not registered for Lavertia Vue. Use "default" or install a compatible UI adapter.
+    </p>
+    <main v-else :lang="lavertia.locale ?? 'en'" :dir="lavertia.direction ?? 'ltr'" :style="themeVariables(lavertia.theme)" class="lvt-root min-h-[calc(100vh-8rem)] bg-gray-50/70 px-4 py-6 sm:px-6 lg:px-8 dark:bg-gray-950/40">
         <div class="mx-auto flex w-full max-w-[1440px] flex-col gap-6 lg:flex-row">
             <aside v-if="lavertia.version === 1 && lavertia.navigation?.length" class="w-full shrink-0 lg:w-60">
                 <nav aria-label="Panel navigation" class="rounded-xl border border-gray-200 bg-white p-3 shadow-sm dark:border-white/10 dark:bg-gray-900/70">
