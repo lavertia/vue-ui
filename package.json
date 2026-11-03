@@ -15,7 +15,7 @@
   ],
   "sideEffects": true,
   "scripts": {
-    "build": "vue-tsc --declaration --emitDeclarationOnly --outDir dist -p tsconfig.json && vite build",
+    "build": "vite build && vue-tsc --declaration --emitDeclarationOnly --outDir dist -p tsconfig.json",
     "prepare": "npm run build",
     "typecheck": "vue-tsc --noEmit -p tsconfig.json",
     "test": "npm run typecheck"
